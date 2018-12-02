@@ -1,27 +1,27 @@
-# simpleFlightSearch
-I want to asses your ability to create a simple AngularJS / Express application. It truly is the bare minimum of knowledge necessary to be successful in this position. I don't want you to spend a lot of time on this. You should be able to do this in a few hours if the job is right for you.
+# SimpleFlightSearch
 
-### Flight Search
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.4.
 
-This programming task consists of building a simple web application to search for flights. Create a new local branch to implement  a simple flight search application. It should take this input from the user:
+## Development server
 
-(Flight Number ||  (Origin && Destination)) && Date
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-The application will call a service that you create in ExpressJS. Use Couchbase as the data source. You can download the docker image of Couchase and run it locally.   
-                                                                                                                                                                                                        
-https://docs.couchbase.com/server/5.5/install/getting-started-docker.html
- 
-Create a new bucket and add the documents included in project.
+## Code scaffolding
 
-[Flight Documents](./flight-docs/flight-sample.json)
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-The file contains an array. Make a document out of each array element. You can you use any value you want as the document key. Create a N1QL statement update the date component of the arrrival and departure properties of each document. This will allow you to specify a current date when searching. 
+## Build
 
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-You must use Angular 4 or higher. Style however you would like. You have total freedom to do what you want but make sure it can do these two things:
+## Running unit tests
 
-	• Validate that the user has provided the right criteria to make a search 
-	• Neatly display the results
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-Create a pull request once you have it working and so I can evaluate it. I will follow up with a quick discussion to review the code.
+## Running end-to-end tests
 
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

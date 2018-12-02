@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-content>
+    <form>
+        <div class="form-group">
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="From" list="source">
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="To" list="destination">
+          </mat-form-field>
+        </div>
+        <div class="form-group"><strong>and/or</strong></div>
+        <div class="form-group">
+          <mat-form-field class="col-md-6">
+            <input matInput placeholder="Flight no." list="flights">
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput [matDatepicker]="picker" placeholder="Date" [value]="date.value">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <button type="submit" class= "btn btn-primary col-md-12">Search Flight</button>
+        </div>
+      </form>
+  </mat-card-content>
+</mat-card>
