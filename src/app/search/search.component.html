@@ -3,16 +3,31 @@
     <form>
         <div class="form-group">
           <mat-form-field class="col-md-6">
-            <input matInput placeholder="From" list="source">
+            <input type="text" matInput placeholder="From" [formControl]="sourceControl" [matAutocomplete]="origin">
+            <mat-autocomplete #origin="matAutocomplete">
+              <mat-option *ngFor="let option of filteredSources | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
           <mat-form-field class="col-md-6">
-            <input matInput placeholder="To" list="destination">
+            <input type="text" matInput placeholder="To" [formControl]="destinationControl" [matAutocomplete]="dest">
+            <mat-autocomplete #dest="matAutocomplete">
+              <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
         <div class="form-group"><strong>and/or</strong></div>
         <div class="form-group">
           <mat-form-field class="col-md-6">
-            <input matInput placeholder="Flight no." list="flights">
+            <input type="text" matInput placeholder="Flight no." [formControl]="flightsControl" [matAutocomplete]="flno">
+            <mat-autocomplete #flno="matAutocomplete">
+              <mat-option *ngFor="let option of filteredFlights | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
           <mat-form-field class="col-md-6">
             <input matInput [matDatepicker]="picker" placeholder="Date" [value]="date.value">

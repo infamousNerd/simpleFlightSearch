@@ -1,25 +1,25 @@
+import { Observable } from "rxjs";
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+// import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StartupService {
 
-  private _startupData: any;
+  public _preFillData: any;
 
   constructor(private http: HttpClient) { }
 
-  load() {
-
-    this._startupData = null;
-
-    return this.http
-        .get('/api')
-        .subscribe((data: any) => this._startupData = data);
+  public load() {
+    return this.http.get('/api').subscribe(loadDoc => {
+      this._preFillData = loadDoc
+    });
   }
 
-  get startupData(): any {
-      return this._startupData;
+  get preFillData(): any {
+      return this._preFillData;
   }
 }

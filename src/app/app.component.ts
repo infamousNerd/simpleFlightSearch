@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { StartupService } from './startup.service';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +8,9 @@ import { StartupService } from './startup.service';
 export class AppComponent implements OnInit {
   title = 'simpleFlightSearch';
 
-  constructor(private router: Router, private startup: StartupService ) { }
+  constructor() { }
 
   ngOnInit() {
 
-    // If there is no startup data received (maybe an error!)
-    // navigate to error route
-    if (!this.startup.startupData) {
-        this.router.navigate(['error'], { replaceUrl: true });
-    }
   }
 }

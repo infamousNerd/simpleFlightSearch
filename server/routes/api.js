@@ -33,21 +33,50 @@ setTimeout(() => {
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    flights.forEach(flight => {
+    const fromArr = [];
+    const toArr = [];
+    const flightArr = [];
+    function setAndGetFlight (flight, resolve, reject) {
         flight.departure = new Date();
         flight.arrival = new Date();
         bucket.manager().createPrimaryIndex(function () { 
             bucket.upsert(flight.flightNumber, flight, function (err, result) {
                 if (err) {
                     console.log('Error while inserting document at app Initialization' + err);
-                    return;
-                } else {
-                    console.log('Successfully inserted the document at app initialization' + result.cas);
-                }
+                    reject(err);
+                } 
+                bucket.get(flight.flightNumber, function (err, result) {
+                    if (err) {
+                        console.log('Not all pre-load data is fetched:' + ' ' + err.message);
+                    }
+                    fromArr.push(result.value.origin);
+                    toArr.push(result.value.destination);
+                    flightArr.push(result.value.flightNumber);
+                    console.log('Got all information?' + ' ' + JSON.stringify(result.value));
+                    resolve();
+                });
             });
         });
+    }
+
+    let flightOperations = flights.map((flight) => {
+        return new Promise((resolve, reject) => {
+            setAndGetFlight(flight, resolve, reject);
+        });
     });
-    res.json('api working or may be not?');
+
+    return Promise.all(flightOperations)
+        .then(() => {
+            const loadDoc = {
+                origins: [...new Set(fromArr)],
+                destinations: [...new Set(toArr)],
+                flights: [...new Set(flightArr)]
+            };
+            res.json(loadDoc);
+            console.log('Pre load data for form-fields sent:' + ' ' + JSON.stringify(loadDoc));
+        }).catch((err) => {
+            console.log('Pre load data for form-fields not sent:' +  ' ' + err);
+        });
 });   
 
 module.exports = router;
