@@ -9,16 +9,10 @@ Steps to launch this app:
 4. `npm start` from terminal (updated the rule for 'start' in ```angular.json```).
 5. visit http://localhos:3000/
 
-Progress on the task:
-1. Created an angular-cli project using @angular/cli and created a homepage closer to the actual United Airlines website UI.
-2. Added NodeJS backend using express.
-3. Replaced the @angular/cli provided webserver with express and created a production grade build that builds distributibles and serves the app with `npm start`.
-4. Leveraged couchbase server's NodeJS SDK `couchbase` provide clusterManager API to create a bucket and subsequently inset the mock sample as documents into it using bucketManager API.
-5. Fetched the required data from the bucket to be providing the available options to select on the form-fields of search functionality. Implemented auto-completion of these fields by user interaction.
+Core Functionalities:
 
-Next Steps on the task:
-1. create the search results component and add functionalityto display the results per search.
-2. Write a couple web services with some N1Ql querys to fetch data and display by choice  `source and destination` and `flightNumber`.
-3. Add dynamic real-time validations to form-fields per user interaction.
-4. Write unit tests for the application if time permits.
+The app comprises of a reactive search form that will be availanble at all times and has pre-filled options as populated by the leverage of APP_INTIALIZE token that can make an initial REST call to the Express Backend which will have created a bucket on local `couchBase` server and upserted the flight data as documents into it. 
+A Results component is dynamically available via the Router Outlet plced as the second half of app-wide bootstrap grid, per user interaction with the search form. Once the search results in a succesful display of results (look for details into search criteria in the next paragraph), A user will be able to use a list group of navigable links, each formatted to show the much needed information on each flight. As a next step any list Item can be clicked to route to a flight detail page on the router outlet which has all the information fetched about the flight.
+A user is allowed to either search using `origin` and `destination` and `date` (or) `flightNumber` and `date`. There are some custom validations in place to avoid user from searching with a different criteria. However a user is allowed to use all search field to search for a flight if any. There are four Web Services in place which run N1Ql queries to fetch data from the database per search criteria.
+
 
