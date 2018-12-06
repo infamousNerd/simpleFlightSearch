@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Flight Details</mat-card-title>
+    <mat-card-subtitle><strong><span><mat-icon>airplanemode_active</mat-icon></span>{{flight.carrier}}-{{flight.flightNumber}}</strong></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="text-center status-div">
+      Status: {{flight.status}}
+    </div>
+    <div class="row text-center">
+      <div class="col-md-3">
+        <h1><strong>{{flight.origin}}</strong></h1>
+        <div><h5>{{flight.departure}}</h5></div>
+      </div>
+      <div class="col-md-2">
+        <mat-icon class="largeIcon">flight_takeoff</mat-icon>
+      </div>
+      <div class="col-md-2">
+        <mat-list>
+          <mat-list-item class="text-center list-item">{{flight.distance}} Miles</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="text-center list-item">{{flight.travelTime}}</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="text-center list-item">{{flight.aircraft}}</mat-list-item>
+        </mat-list>
+      </div>
+      <div class="col-md-2">
+        <mat-icon class="largeIcon">flight_land</mat-icon>
+      </div>
+      <div class="col-md-3">
+        <h1><strong>{{flight.destination}}</strong></h1>
+        <div><h5>{{flight.arrival}}</h5></div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

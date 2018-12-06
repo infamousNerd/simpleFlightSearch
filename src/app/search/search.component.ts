@@ -1,9 +1,14 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import {map, startWith} from 'rxjs/operators';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { StartupService } from '../startup.service';
+
+import { equalityValidator } from  '../validations/equality-validation.directive';
+import { invalidSelection } from '../validations/invalid-selection.directive';
+import { invalidSearch } from '../validations/invalid-search.directive';
 
 @Component({
   selector: 'app-search',
@@ -11,63 +16,66 @@ import { StartupService } from '../startup.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  sourceControl = new FormControl();
-  destinationControl = new FormControl();
-  flightsControl = new FormControl();
-  sourceArr: Array<string>;
-  destinationArr: Array<string>;
-  flights: Array<string>;
+  sourceArr: Array<string> = this.startup.preFillData.origins;
+  destinationArr: Array<string> = this.startup.preFillData.destinations;
+  flights: Array<string> = this.startup.preFillData.flights;
+  searchFlights =  new FormGroup({
+    sourceControl: new FormControl(null, [invalidSelection(this.startup.preFillData.origins)]),
+    destinationControl: new FormControl(null, [invalidSelection(this.startup.preFillData.destinations)]),
+    flightsControl: new FormControl(null, [invalidSelection(this.startup.preFillData.flights)]),
+    dateControl: new FormControl(new Date(), [ Validators.required ])
+  }, { validators: [equalityValidator, invalidSearch],  updateOn: 'blur'});
+  model: any = {};
   filteredSources: Observable<string[]>;
   filteredDestinations: Observable<string[]>;
   filteredFlights: Observable<string[]>;
-  constructor(public startup: StartupService) { }
+  constructor(private startup: StartupService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    
-    async function delay(time: number) {
-      return new Promise(resolve => setTimeout(resolve, time));
-    }
 
-    (async () => {
-      await delay(2000);
-
-      this.filteredSources = this.sourceControl.valueChanges
+    this.filteredSources = this.searchFlights.controls.sourceControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this.sourceFilter(value))
       );
 
-      this.filteredDestinations = this.destinationControl.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this.destinationFilter(value))
-        );
+    this.filteredDestinations = this.searchFlights.controls.destinationControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.destinationFilter(value))
+      );
 
-      this.filteredFlights = this.flightsControl.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this.flightsFilter(value))
-        );
-    })();
+    this.filteredFlights = this.searchFlights.controls.flightsControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.flightsFilter(value))
+      );
+  }
+
+  search () {
+    const values = this.searchFlights.value;
+    const textifiedDate =  JSON.stringify(values.dateControl).replace('"', '').split("T")[0];
+    const requestObj = {
+      origin: values.sourceControl.toUpperCase(),
+      destination: values.destinationControl.toUpperCase(),
+      flight: values.flightsControl,
+      date: textifiedDate
+    };
+    
+    return this.router.navigate(['/results'], { queryParams: requestObj, relativeTo: this.route, skipLocationChange: true });
   }
 
   private sourceFilter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    this.sourceArr = this.startup.preFillData.origins;
     return this.sourceArr.filter(option => option.toLowerCase().includes(filterValue));
   }
   private destinationFilter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    this.destinationArr = this.startup.preFillData.destinations;
     return this.destinationArr.filter(option => option.toLowerCase().includes(filterValue));
   }
   private flightsFilter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    this.flights = this.startup.preFillData.flights;
     return this.flights.filter(option => option.toLowerCase().includes(filterValue));
   }
-
-  date = new FormControl(new Date());
-  serializedDate = new FormControl((new Date()).toISOString());
 
 }

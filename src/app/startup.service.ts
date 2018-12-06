@@ -1,8 +1,5 @@
-import { Observable } from "rxjs";
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-// import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +10,12 @@ export class StartupService {
 
   constructor(private http: HttpClient) { }
 
-  public load() {
-    return this.http.get('/api').subscribe(loadDoc => {
-      this._preFillData = loadDoc
-    });
+  load(): Promise<any> {
+
+    const startupPromise = this.http.get('/api').toPromise();
+    startupPromise.then(loadDoc => this._preFillData = loadDoc);
+
+    return startupPromise;
   }
 
   get preFillData(): any {

@@ -5,13 +5,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatNativeDateModule, MatDatepickerModule, MatCardModule, MatAutocompleteModule } from '@angular/material';
+import { MatFormFieldModule, 
+         MatInputModule, 
+         MatNativeDateModule, 
+         MatDatepickerModule, 
+         MatCardModule, 
+         MatAutocompleteModule, 
+         MatListModule,
+         MatIconModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 
 import { StartupService } from './startup.service';
 import { ResultsComponent } from './results/results.component';
+import { DetailsComponent } from './details/details.component';
 
 export function startupServiceFactory(startupService: StartupService): Function {
   return () => startupService.load();
@@ -21,7 +29,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
   declarations: [
     AppComponent,
     SearchComponent,
-    ResultsComponent
+    ResultsComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +44,9 @@ export function startupServiceFactory(startupService: StartupService): Function 
     MatNativeDateModule,
     MatDatepickerModule,
     MatCardModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatListModule,
+    MatIconModule
   ],
   providers: [
     StartupService,
