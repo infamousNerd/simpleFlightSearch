@@ -17,7 +17,7 @@ import { MatFormFieldModule,
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 
-import { StartupService } from './startup.service';
+import { StartupService } from './services/startup.service';
 import { ResultsComponent } from './results/results.component';
 import { DetailsComponent } from './details/details.component';
 

@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="props">
   <mat-card-header>
     <mat-card-title>Flight Details</mat-card-title>
     <mat-card-subtitle><strong><span><mat-icon>airplanemode_active</mat-icon></span>{{flight.carrier}}-{{flight.flightNumber}}</strong></mat-card-subtitle>

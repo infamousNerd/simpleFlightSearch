@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { StartupService } from '../startup.service';
+import { StartupService } from '../services/startup.service';
 
 import { equalityValidator } from  '../validations/equality-validation.directive';
 import { invalidSelection } from '../validations/invalid-selection.directive';

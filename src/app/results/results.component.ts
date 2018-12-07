@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../search.service';
-import { PassService } from '../pass.service';
+import { SearchService } from '../services/search.service';
+import { PassService } from '../services/pass.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
