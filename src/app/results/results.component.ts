@@ -17,6 +17,7 @@ export class ResultsComponent implements OnInit {
   
   flights: Array<{}>;
   category: string;
+  length: number;
 
   constructor(private searcher: SearchService, private route: ActivatedRoute, private router: Router, private pass: PassService) { }
 
@@ -31,7 +32,8 @@ export class ResultsComponent implements OnInit {
         return this.searcher.search(url, query).subscribe(
           (flightsDoc: Array<{}>) => {
             this.flights = flightsDoc;
-            this.category = "Origin and Destination"
+            this.category = "Origin and Destination";
+            this.length = flightsDoc.length;
           }
         ),
         catchError(err => throwError(new Error('Unable to get the flight details:' + '' + err)));;
@@ -41,7 +43,8 @@ export class ResultsComponent implements OnInit {
         return this.searcher.search(url, query).subscribe(
           (flightsDoc: Array<{}>) => {
             this.flights = flightsDoc;
-            this.category = "Flight Number"
+            this.category = "Flight Number";
+            this.length = flightsDoc.length;
           }
         ),
         catchError(err => throwError(new Error('Unable to get the flight details:' + '' + err)));;;
@@ -51,7 +54,8 @@ export class ResultsComponent implements OnInit {
         return this.searcher.search(url, query).subscribe(
           (flightsDoc: Array<{}>) => {
             this.flights = flightsDoc;
-            this.category = "All Selectable criteria"
+            this.category = "All selectable criteria";
+            this.length = flightsDoc.length;
           }
         ),
         catchError(err => throwError(new Error('Unable to get the flight details:' + '' + err)));;;

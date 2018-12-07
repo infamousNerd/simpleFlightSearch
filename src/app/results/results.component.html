@@ -4,7 +4,7 @@
     <mat-card-subtitle>Based on {{category}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p class="text-center" *ngIf="!flights.length">Oops! We got nothing for that search.</p>
+    <p class="text-center" *ngIf="!length">Oops! We got nothing for that search.</p>
     <mat-nav-list>
       <a mat-list-item class="row" *ngFor="let flight of flights" (click)="passFlight(flight)">
         <div class="col-md-2"><span><mat-icon>airplanemode_active</mat-icon></span>{{flight.flightNumber}}</div>

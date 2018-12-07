@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
     destinationControl: new FormControl(null, [invalidSelection(this.startup.preFillData.destinations)]),
     flightsControl: new FormControl(null, [invalidSelection(this.startup.preFillData.flights)]),
     dateControl: new FormControl(new Date(), [ Validators.required ])
-  }, { validators: [equalityValidator, invalidSearch],  updateOn: 'blur'});
+  }, { validators: [equalityValidator, invalidSearch]} /*updateOn: 'blur'*/);
   model: any = {};
   filteredSources: Observable<string[]>;
   filteredDestinations: Observable<string[]>;
@@ -56,8 +56,8 @@ export class SearchComponent implements OnInit {
     const values = this.searchFlights.value;
     const textifiedDate =  JSON.stringify(values.dateControl).replace('"', '').split("T")[0];
     const requestObj = {
-      origin: values.sourceControl.toUpperCase(),
-      destination: values.destinationControl.toUpperCase(),
+      origin: values.sourceControl,
+      destination: values.destinationControl,
       flight: values.flightsControl,
       date: textifiedDate
     };

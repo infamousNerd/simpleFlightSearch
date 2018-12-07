@@ -5,6 +5,9 @@
         <div *ngIf="searchFlights.get('sourceControl').invalid || searchFlights.get('destinationControl').invalid || searchFlights.get('flightsControl').invalid" class="alert alert-danger">
           Search-criteria can only be an available value
         </div>
+        <div *ngIf="searchFlights.get('dateControl').invalid" class="alert alert-danger">
+          Date is a required value
+        </div>
       </div>
       <div class="form-group">
         <mat-form-field class="col-md-6">
@@ -27,7 +30,7 @@
       <div *ngIf="searchFlights.errors?.equality && (searchFlights.touched || searchFlights.dirty)" class="cross-validation-error-message alert alert-danger">
         Origin cannot match Destination.
       </div>
-      <div *ngIf="searchFlights.errors?.invalid && (searchFlights.touched || searchFlights.dirty)" class="cross-validation-error-message alert alert-danger">
+      <div *ngIf="searchFlights.errors?.invalidSearch && (searchFlights.touched || searchFlights.dirty)" class="cross-validation-error-message alert alert-danger">
         Invalid Search Criteria
       </div>
       <div class="form-group"><strong>and/or</strong></div>
